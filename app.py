@@ -194,4 +194,6 @@ elif graph_type == "Line (линия)":
 
 st.plotly_chart(fig, use_container_width=True)
 
-
+# === Таблица данных ===
+with st.expander("Показать данные"):
+    st.dataframe(df, use_container_width=True)
