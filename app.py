@@ -40,6 +40,14 @@ with st.sidebar:
     selected_work = st.multiselect("Вид работ", df["ТехнологическиеОперацииВидРабот"].unique())
     selected_driver = st.multiselect("Водитель", df["Водитель"].unique())
     selected_equipment = st.multiselect("Оборудование", df["Оборудование"].unique())
+    
+    min_date, max_date = df["ДатаДокумента"].min(), df["ДатаДокумента"].max()
+    date_range = st.date_input(
+        "Период (Дата документа)",
+        value=(min_date, max_date),
+        min_value=min_date,
+        max_value=max_date
+    )
 
 # Применяем фильтры
 if selected_doc:
@@ -50,6 +58,10 @@ if selected_driver:
     df = df[df["Водитель"].isin(selected_driver)]
 if selected_equipment:
     df = df[df["Оборудование"].isin(selected_equipment)]
+
+if isinstance(date_range, tuple) and len(date_range) == 2:
+    start_date, end_date = pd.to_datetime(date_range[0]), pd.to_datetime(date_range[1])
+    df = df[(df["ДатаДокумента"] >= start_date) & (df["ДатаДокумента"] <= end_date)]
 
 if df.empty:
     st.warning("Нет данных по выбранным фильтрам.")
