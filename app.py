@@ -12,7 +12,7 @@ st.title("📊 Аналитика путевых листов")
 uploaded_file = st.file_uploader("Загрузите JSON", type="json")
 
 if uploaded_file is None:
-    st.info("Загрузите JSON-файл с данными. Пример лежит в папке `data/example.json`.")
+    st.info("Загрузите JSON-файл с данными.")
     example_path = Path("data/example.json")
     if example_path.exists():
         with open(example_path, "r", encoding="utf-8") as f:
